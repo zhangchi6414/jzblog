@@ -1,6 +1,12 @@
 package model
 
-import "gorm.io/gorm"
+import (
+	"fmt"
+	"gorm.io/driver/mysql"
+	"gorm.io/gorm"
+	"jzblog/global"
+	"jzblog/pkg/setting"
+)
 
 type Model struct {
 	gorm.Model
@@ -8,6 +14,22 @@ type Model struct {
 	UpdateBy string `json:"update_by;comment:删除者"`
 }
 
-//func NewDBEngine(databasesSetting *setting.DatabasesSetting) (gorm.Model, error) {
-//
-//}
+func NewDBEngine(databasesSetting *setting.DBSettings) (*gorm.DB, error) {
+	s := "%s:%s@tcp(%s)/%s?charset=%s&parseTime=%t&loc=Local"
+	db, err := gorm.Open(mysql.New(mysql.Config{
+		DSN: fmt.Sprintf(
+			s,
+			databasesSetting.Username,
+			databasesSetting.Password,
+			databasesSetting.Host,
+			databasesSetting.DBName,
+			databasesSetting.Charset,
+			databasesSetting.ParseTime)}))
+	if err != nil {
+		return nil, err
+	}
+
+	if global.ServerSetting.RunMode == "debug" {
+		db.LogMode
+	}
+}

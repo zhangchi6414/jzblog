@@ -1,0 +1,22 @@
+Server:
+  RunMode: debug
+  HttpPort: 8080
+  ReadTimeout: 60
+  WriteTimeout: 60
+APP:
+  DefaultPageSize: 10
+  MaxPageSize: 100
+  LogSavePath: storage/log
+  LogFileName: app
+  LogFileEXT: .log
+Datebase:
+  DBType: mysql
+  Username: root
+  Password: 123456
+  Host: 192.168.2.103:303306
+  DBName: jzblog
+  TablePrefix: blog_
+  Charset: utf8mb4
+  ParseTime: True
+  MaxIdleConns: 10
+  MaxOpenConns: 30
