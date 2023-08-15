@@ -5,6 +5,7 @@ import (
 	"net/http"
 )
 
+// 定义返回的错误码
 type Error struct {
 	code    int      `json:"code,omitempty"`
 	msg     string   `json:"msg,omitempty"`

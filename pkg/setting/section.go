@@ -2,6 +2,8 @@ package setting
 
 import "time"
 
+//配置转换
+
 type ServerSettings struct {
 	RunMode      string
 	HttpPort     string
@@ -15,6 +17,11 @@ type AppSettings struct {
 	LogSavePath     string
 	LogFileName     string
 	LogFileEXT      string
+	LogMaxSize      int
+	MaxBackups      int
+	MaxAge          int
+	Compress        bool
+	LogLevel        string
 }
 
 type DBSettings struct {

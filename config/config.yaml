@@ -9,11 +9,16 @@ APP:
   LogSavePath: storage/log
   LogFileName: app
   LogFileEXT: .log
+  LogMaxSize: 10  #默认10M切割
+  MaxBackups: 30
+  MaxAge: 7
+  Compress: true
+  LogLevel: "debug"
 Datebase:
   DBType: mysql
   Username: root
-  Password: 123456
-  Host: 192.168.2.103:303306
+  Password: Dyg@12345
+  Host: 192.168.2.103:30336
   DBName: jzblog
   TablePrefix: blog_
   Charset: utf8mb4

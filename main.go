@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"jzblog/global"
+	"jzblog/pkg/logger"
 	"jzblog/pkg/setting"
 	"jzblog/server/model"
 	"jzblog/server/routers"
@@ -21,6 +22,7 @@ func init() {
 	if err != nil {
 		log.Fatalf(fmt.Sprintf("init.setupDBEngine error: %v", err))
 	}
+	setupLogger()
 }
 
 func main() {
@@ -63,4 +65,8 @@ func setupDBEngine() error {
 		return err
 	}
 	return nil
+}
+
+func setupLogger() {
+	global.Logger = logger.NewLogger(global.AppSetting)
 }
