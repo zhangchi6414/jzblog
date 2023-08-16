@@ -2,6 +2,9 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	_ "jzblog/docs"
 	v1 "jzblog/server/routers/api/v1"
 )
 
@@ -9,7 +12,7 @@ func NewRouter() *gin.Engine {
 	r := gin.Default()
 	article := v1.NewArticle()
 	tag := v1.NewTag()
-
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	apiv1 := r.Group("/api/v1")
 	{
 		apiv1.POST("/tags", tag.Create)
