@@ -1,7 +1,11 @@
 package v1
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"jzblog/global"
+	"jzblog/pkg/app"
+	"jzblog/pkg/errcode"
 )
 
 type Tag struct {
@@ -61,7 +65,19 @@ func (t Tag) Get(c *gin.Context) {
 // @Failure 500 {object} errcode.Error "内部错误"
 // @Router /api/v1/tags [get]
 func (t Tag) List(c *gin.Context) {
-
+	param := struct {
+		Name  string `json:"name,omitempty" form:"name" binding:"max=100"`
+		State uint8  `json:"state,omitempty" form:"state,default=1" binding:"oneof=0 1"`
+	}{}
+	respone := app.NewResponse(c)
+	valid, errs := app.BindAndValid(c, &param)
+	if !valid {
+		global.Logger.Error(fmt.Sprintf("app.BindAndValid errs:", errs))
+		respone.ToErrorRespone(errcode.InvalidParams.WithDetails(errs.Errors()...))
+		return
+	}
+	respone.ToResponse(gin.H{})
+	return
 }
 
 // @Summary 新增标签

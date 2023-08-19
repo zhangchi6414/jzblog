@@ -5,11 +5,14 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 	_ "jzblog/docs"
+	"jzblog/server/middleware"
 	v1 "jzblog/server/routers/api/v1"
 )
 
 func NewRouter() *gin.Engine {
 	r := gin.Default()
+	//国际语言
+	r.Use(middleware.Translations())
 	article := v1.NewArticle()
 	tag := v1.NewTag()
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
